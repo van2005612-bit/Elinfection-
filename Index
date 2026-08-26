@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elinfection | مكافحة العدوى والمناعة والأوبئة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0a0e14;
+    --ink-2:#0f1620;
+    --slide:#131c28;
+    --agar:#e8a33d;
+    --agar-dim:#8a6423;
+    --stain:#7c5cfc;
+    --culture:#2fbfa3;
+    --paper:#eae7df;
+    --paper-dim:#9aa2ac;
+    --line:rgba(234,231,223,0.10);
+    --danger:#e8573d;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'IBM Plex Sans Arabic', sans-serif;
+    line-height:1.7;
+    overflow-x:hidden;
+    position:relative;
+  }
+  /* faint petri-dish texture */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(124,92,252,0.07), transparent 40%),
+      radial-gradient(circle at 85% 75%, rgba(232,163,61,0.06), transparent 45%),
+      radial-gradient(circle at 50% 50%, rgba(47,191,163,0.04), transparent 60%);
+    pointer-events:none;
+    z-index:0;
+  }
+  h1,h2,h3,.brand,.eyebrow{font-family:'Tajawal', sans-serif;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px;position:relative;z-index:1;}
+
+  /* NAV */
+  header{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter:blur(14px);
+    background:rgba(10,14,20,0.72);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{display:flex;align-items:center;justify-content:space-between;padding:18px 28px;}
+  .brand{font-size:22px;font-weight:800;letter-spacing:0.5px;display:flex;align-items:center;gap:10px;}
+  .brand-mark{
+    width:14px;height:14px;border-radius:50%;
+    background:var(--culture);
+    box-shadow:0 0 0 3px rgba(47,191,163,0.15), 0 0 14px rgba(47,191,163,0.7);
+    animation:pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{transform:scale(1);opacity:1;}
+    50%{transform:scale(1.35);opacity:0.7;}
+  }
+  .navlinks{display:flex;gap:32px;font-size:15px;color:var(--paper-dim);}
+  .navlinks a{transition:color .2s;}
+  .navlinks a:hover{color:var(--culture);}
+  .nav-cta{
+    background:var(--paper);color:var(--ink);
+    padding:9px 20px;border-radius:3px;font-weight:700;font-size:14px;
+    transition:transform .2s, background .2s;
+  }
+  .nav-cta:hover{background:var(--culture);transform:translateY(-2px);}
+  @media(max-width:780px){.navlinks{display:none;}}
+
+  /* HERO */
+  .hero{
+    padding:100px 0 70px;
+    position:relative;
+    overflow:hidden;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    font-size:13px;letter-spacing:2px;color:var(--agar);
+    border:1px solid rgba(232,163,61,0.3);
+    padding:6px 14px;border-radius:2px;
+    margin-bottom:28px;
+    font-weight:700;
+  }
+  .eyebrow::before{content:"";width:6px;height:6px;background:var(--agar);border-radius:50%;}
+  h1.headline{
+    font-size:clamp(38px,6vw,68px);
+    font-weight:900;
+    line-height:1.15;
+    max-width:820px;
+    letter-spacing:-0.5px;
+  }
+  h1.headline span{color:var(--culture);}
+  .hero-sub{
+    max-width:600px;
+    font-size:18px;
+    color:var(--paper-dim);
+    margin-top:26px;
+    font-weight:300;
+  }
+  .hero-cta-row{display:flex;gap:16px;margin-top:40px;flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--culture);color:#06120f;
+    padding:15px 30px;border-radius:3px;font-weight:700;font-size:15px;
+    transition:transform .2s, box-shadow .2s;
+    display:inline-block;
+  }
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(47,191,163,0.3);}
+  .btn-ghost{
+    border:1px solid var(--line);color:var(--paper);
+    padding:15px 30px;border-radius:3px;font-weight:600;font-size:15px;
+    transition:border-color .2s, background .2s;
+  }
+  .btn-ghost:hover{border-color:var(--paper-dim);background:rgba(255,255,255,0.03);}
+
+  /* EPI CURVE SIGNATURE */
+  .epicurve{
+    margin-top:70px;
+    border:1px solid var(--line);
+    background:linear-gradient(180deg, var(--slide), var(--ink-2));
+    border-radius:6px;
+    padding:26px 26px 10px;
+    position:relative;
+  }
+  .epicurve-label{
+    display:flex;justify-content:space-between;align-items:baseline;
+    font-size:12px;color:var(--paper-dim);letter-spacing:1px;
+    margin-bottom:6px;
+    font-family:'IBM Plex Sans Arabic',sans-serif;
+  }
+  .epicurve svg{width:100%;height:auto;display:block;}
+  .epi-path{
+    fill:none;stroke:var(--danger);stroke-width:2.5;
+    stroke-dasharray:1000;stroke-dashoffset:1000;
+    animation:draw 2.6s ease forwards 0.4s;
+  }
+  .epi-fill{
+    fill:url(#epiGradient);
+    opacity:0;
+    animation:fadein 1.5s ease forwards 1.6s;
+  }
+  @keyframes draw{to{stroke-dashoffset:0;}}
+  @keyframes fadein{to{opacity:1;}}
+  .epi-dot{
+    fill:var(--agar);
+    animation:blink 2.2s ease-in-out infinite;
+  }
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+
+  /* SECTIONS */
+  section{padding:90px 0;position:relative;z-index:1;}
+  .section-head{margin-bottom:48px;max-width:640px;}
+  .section-tag{font-size:13px;letter-spacing:2px;color:var(--stain);font-weight:700;margin-bottom:14px;}
+  h2{font-size:clamp(28px,4vw,40px);font-weight:800;}
+  .section-desc{color:var(--paper-dim);margin-top:14px;font-size:16px;}
+
+  /* TOPICS PILLS */
+  .topics{display:flex;flex-wrap:wrap;gap:12px;}
+  .pill{
+    border:1px solid var(--line);
+    padding:12px 22px;border-radius:30px;
+    font-size:14px;color:var(--paper-dim);
+    display:flex;align-items:center;gap:9px;
+    transition:border-color .25s, color .25s, transform .25s;
+  }
+  .pill:hover{border-color:var(--culture);color:var(--paper);transform:translateY(-2px);}
+  .pill i{width:7px;height:7px;border-radius:50%;background:var(--culture);display:inline-block;}
+  .pill:nth-child(2) i{background:var(--stain);}
+  .pill:nth-child(3) i{background:var(--agar);}
+  .pill:nth-child(4) i{background:var(--danger);}
+  .pill:nth-child(5) i{background:var(--culture);}
+
+  /* ARTICLES */
+  .articles-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:22px;
+  }
+  @media(max-width:900px){.articles-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:620px){.articles-grid{grid-template-columns:1fr;}}
+  .card{
+    background:var(--slide);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:26px;
+    display:flex;flex-direction:column;gap:16px;
+    transition:transform .3s, border-color .3s, box-shadow .3s;
+    position:relative;
+    overflow:hidden;
+  }
+  .card::after{
+    content:"";position:absolute;top:0;right:0;width:100%;height:2px;
+    background:linear-gradient(90deg, transparent, var(--culture), transparent);
+    transform:scaleX(0);transform-origin:right;transition:transform .4s;
+  }
+  .card:hover{transform:translateY(-6px);border-color:rgba(47,191,163,0.35);box-shadow:0 18px 40px rgba(0,0,0,0.35);}
+  .card:hover::after{transform:scaleX(1);}
+  .card-top{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--paper-dim);letter-spacing:0.5px;}
+  .card-tag{color:var(--culture);font-weight:700;}
+  .card h3{font-size:19px;font-weight:700;line-height:1.5;}
+  .card p{font-size:14px;color:var(--paper-dim);}
+  .card-foot{margin-top:auto;font-size:13px;color:var(--paper-dim);display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:14px;}
+  .articles-note{margin-top:34px;font-size:14px;color:var(--paper-dim);border-right:2px solid var(--agar);padding-right:16px;}
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:60px;align-items:center;}
+  @media(max-width:820px){.about-grid{grid-template-columns:1fr;gap:40px;}}
+  .about-text p{color:var(--paper-dim);font-size:16px;margin-top:16px;}
+  .about-text strong{color:var(--paper);}
+  .stat-box{
+    background:var(--slide);border:1px solid var(--line);border-radius:6px;
+    padding:28px;display:grid;grid-template-columns:1fr 1fr;gap:24px;
+  }
+  .stat-box div{border-left:1px solid var(--line);padding-right:6px;}
+  .stat-box div:nth-child(2n){border-left:none;}
+  .stat-num{font-family:'Tajawal',sans-serif;font-size:32px;font-weight:900;color:var(--culture);}
+  .stat-label{font-size:13px;color:var(--paper-dim);margin-top:4px;}
+
+  /* CONTACT / FOOTER */
+  footer{
+    border-top:1px solid var(--line);
+    padding:70px 0 34px;
+    position:relative;z-index:1;
+    background:linear-gradient(180deg, transparent, rgba(124,92,252,0.04));
+  }
+  .contact-box{
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:26px;
+    padding-bottom:50px;border-bottom:1px solid var(--line);
+  }
+  .contact-box h2{font-size:clamp(26px,4vw,36px);max-width:520px;}
+  .phone-link{
+    display:inline-flex;align-items:center;gap:12px;
+    background:var(--culture);color:#06120f;
+    padding:18px 30px;border-radius:4px;
+    font-family:'Tajawal',sans-serif;font-weight:800;font-size:20px;
+    letter-spacing:1px;direction:ltr;
+    transition:transform .25s, box-shadow .25s;
+  }
+  .phone-link:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 16px 40px rgba(47,191,163,0.3);}
+  .foot-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:28px;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--paper-dim);}
+  .foot-brand{display:flex;align-items:center;gap:8px;color:var(--paper);font-weight:700;font-family:'Tajawal',sans-serif;}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.show{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="brand"><span class="brand-mark"></span>Elinfection</div>
+    <div class="navlinks">
+      <a href="#articles">المقالات</a>
+      <a href="#topics">المحاور</a>
+      <a href="#about">عن القناة</a>
+      <a href="#contact">تواصل</a>
+    </div>
+    <a href="#contact" class="nav-cta">تواصل معنا</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">محتوى علمي يومي · مكافحة العدوى</div>
+      <h1 class="headline">نفهم <span>العدوى</span> قبل أن تنتشر</h1>
+      <p class="hero-sub">
+        قناة Elinfection يقدّمها زياد سالم، محتوى علمي مبسّط ودقيق عن مكافحة العدوى، المناعة، والأمراض الوبائية،
+        بمقال جديد كل يوم.
+      </p>
+      <div class="hero-cta-row">
+        <a href="#articles" class="btn-primary">تصفّح المقالات</a>
+        <a href="#about" class="btn-ghost">عن القناة</a>
+      </div>
+
+      <div class="epicurve reveal">
+        <div class="epicurve-label">
+          <span>منحنى الانتشار الوبائي — نموذج توضيحي</span>
+          <span>EPIDEMIC CURVE</span>
+        </div>
+        <svg viewBox="0 0 800 220" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="epiGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#e8573d" stop-opacity="0.35"/>
+              <stop offset="100%" stop-color="#e8573d" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path class="epi-fill" d="M0,200 C80,195 120,150 180,120 C260,80 300,40 360,30 C420,20 460,60 520,100 C580,140 640,170 700,185 C740,192 780,198 800,200 L800,220 L0,220 Z"/>
+          <path class="epi-path" d="M0,200 C80,195 120,150 180,120 C260,80 300,40 360,30 C420,20 460,60 520,100 C580,140 640,170 700,185 C740,192 780,198 800,200"/>
+          <circle class="epi-dot" cx="360" cy="30" r="5"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="topics">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="section-tag">المحاور</div>
+        <h2>الموضوعات التي تغطّيها القناة</h2>
+      </div>
+      <div class="topics reveal">
+        <div class="pill"><i></i> مكافحة العدوى</div>
+        <div class="pill"><i></i> المناعة والتحصين</div>
+        <div class="pill"><i></i> الأمراض الوبائية</div>
+        <div class="pill"><i></i> الصحة العامة</div>
+        <div class="pill"><i></i> الميكروبيولوجي الإكلينيكي</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="articles">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="section-tag">يوميًا</div>
+        <h2>أحدث المقالات العلمية</h2>
+        <p class="section-desc">مقالات مبنية على مصادر علمية موثوقة، تُنشر أولًا بأول. هذه نماذج مبدئية يمكن استبدالها بمقالاتك الفعلية.</p>
+      </div>
+
+      <div class="articles-grid">
+        <div class="card reveal">
+          <div class="card-top"><span class="card-tag">مكافحة العدوى</span><span>اليوم</span></div>
+          <h3>غسل اليدين: الإجراء الأبسط والأكثر فاعلية في المستشفيات</h3>
+          <p>مراجعة علمية لأهمية النظافة اليدوية في خفض معدلات العدوى المكتسبة من المستشفيات.</p>
+          <div class="card-foot"><span>3 دقائق قراءة</span><span>Elinfection</span></div>
+        </div>
+
+        <div class="card reveal">
+          <div class="card-top"><span class="card-tag">المناعة</span><span>أمس</span></div>
+          <h3>كيف تتذكر خلايا الذاكرة المناعية العدوى بعد سنوات؟</h3>
+          <p>شرح مبسّط لآلية المناعة التكيفية ودور الخلايا التائية والبائية في الذاكرة المناعية.</p>
+          <div class="card-foot"><span>4 دقائق قراءة</span><span>Elinfection</span></div>
+        </div>
+
+        <div class="card reveal">
+          <div class="card-top"><span class="card-tag">الأوبئة</span><span>منذ يومين</span></div>
+          <h3>منحنى الانتشار الوبائي: كيف نقرأ بيانات تفشّي الأمراض؟</h3>
+          <p>مقدمة عن الوبائيات الوصفية وكيفية تفسير منحنيات الحالات خلال أي تفشٍّ مرضي.</p>
+          <div class="card-foot"><span>5 دقائق قراءة</span><span>Elinfection</span></div>
+        </div>
+
+        <div class="card reveal">
+          <div class="card-top"><span class="card-tag">التحصين</span><span>منذ 3 أيام</span></div>
+          <h3>مناعة القطيع: الرقم الذي يحدد مصير أي وباء</h3>
+          <p>كيف يُحسب عتبة مناعة القطيع، ولماذا تختلف من مرض إلى آخر بحسب معدل العدوى الأساسي.</p>
+          <div class="card-foot"><span>4 دقائق قراءة</span><span>Elinfection</span></div>
+        </div>
+
+        <div class="card reveal">
+          <div class="card-top"><span class="card-tag">الميكروبيولوجي</span><span>منذ 4 أيام</span></div>
+          <h3>مقاومة المضادات الحيوية: التهديد الصامت القادم</h3>
+          <p>نظرة على آليات مقاومة البكتيريا للمضادات الحيوية وأثرها على الصحة العامة عالميًا.</p>
+          <div class="card-foot"><span>6 دقائق قراءة</span><span>Elinfection</span></div>
+        </div>
+
+        <div class="card reveal">
+          <div class="card-top"><span class="card-tag">الصحة العامة</span><span>منذ 5 أيام</span></div>
+          <h3>العزل والحجر الصحي: الفرق العلمي بين المصطلحين</h3>
+          <p>توضيح للفروق العملية والعلمية بين إجراءات العزل والحجر الصحي في السيطرة على العدوى.</p>
+          <div class="card-foot"><span>3 دقائق قراءة</span><span>Elinfection</span></div>
+        </div>
+      </div>
+
+      <p class="articles-note">هذه المقالات نماذج أولية لتصميم الموقع، ويمكن استبدالها بسهولة بمقالاتك اليومية الفعلية.</p>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <div class="section-tag">عن القناة</div>
+          <h2>Elinfection</h2>
+          <p>قناة علمية يقدّمها <strong>زياد سالم</strong>، تهدف إلى تبسيط علوم مكافحة العدوى والمناعة والأوبئة
+            لجمهور عربي واسع، عبر مقالات يومية دقيقة ومبنية على مصادر علمية موثوقة.</p>
+          <p>الهدف: رفع الوعي الصحي المجتمعي بطريقة علمية، بعيدًا عن التهويل أو التبسيط المخل.</p>
+        </div>
+        <div class="stat-box reveal">
+          <div><div class="stat-num">يومي</div><div class="stat-label">معدل نشر المقالات</div></div>
+          <div><div class="stat-num">٣</div><div class="stat-label">محاور علمية رئيسية</div></div>
+          <div><div class="stat-num">علمي</div><div class="stat-label">منهج المحتوى</div></div>
+          <div><div class="stat-num">مجاني</div><div class="stat-label">الوصول للمحتوى</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact-box reveal">
+      <h2>عايز تتواصل مع القناة أو تستفسر عن مقال؟</h2>
+      <a class="phone-link" href="tel:01025134465">
+        01025134465
+      </a>
+    </div>
+    <div class="foot-bottom">
+      <div class="foot-brand"><span class="brand-mark"></span>Elinfection — زياد سالم</div>
+      <div>© 2026 جميع الحقوق محفوظة</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); } });
+  },{threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+
+</body>
+</html>
